@@ -1,5 +1,10 @@
 /* ===============================
-   FIREBASE CONFIG
+   FIREBASE CONFIG + INIT
+   Arquivo: js/firebase.js
+================================ */
+
+/* ===============================
+   IMPORTS FIREBASE
 ================================ */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
@@ -22,41 +27,42 @@ import {
 
 /* ===============================
    CONFIG DO PROJETO
-   (NÃO MEXER SE JÁ FUNCIONA)
 ================================ */
 const firebaseConfig = {
   apiKey: "AIzaSyBXrz_LFG44evIKLVBjYk4dYhaO9T2-FE0",
   authDomain: "zeze-da-sensi-ofc.firebaseapp.com",
   projectId: "zeze-da-sensi-ofc",
-  storageBucket: "zeze-da-sensi-ofc.appspot.com",
-  messagingSenderId: "000000000000",
-  appId: "1:000000000000:web:000000000000"
+  storageBucket: "zeze-da-sensi-ofc.appspot.com"
 };
 
 /* ===============================
-   INIT
+   INIT APP
 ================================ */
 const app = initializeApp(firebaseConfig);
 
+/* ===============================
+   EXPORTS BASE
+================================ */
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const provider = new GoogleAuthProvider();
 
 /* ===============================
    LOGIN GOOGLE
-   (POPUP NO PC / REDIRECT NO MOBILE)
+   - Mobile: Redirect
+   - Desktop: Popup
 ================================ */
 export async function loginGoogle() {
-  const isMobile = /Android|iPhone/i.test(navigator.userAgent);
-
   try {
+    const isMobile = /Android|iPhone/i.test(navigator.userAgent);
+
     if (isMobile) {
       await signInWithRedirect(auth, provider);
     } else {
       await signInWithPopup(auth, provider);
     }
-  } catch (err) {
-    console.error("Erro no login:", err);
+  } catch (e) {
+    console.error("Erro no login:", e);
     alert("Erro ao fazer login. Tente novamente.");
   }
 }
@@ -68,24 +74,27 @@ export async function logout() {
   try {
     await signOut(auth);
     location.reload();
-  } catch (err) {
-    console.error("Erro no logout:", err);
+  } catch (e) {
+    console.error("Erro no logout:", e);
+    alert("Erro ao sair.");
   }
 }
 
 /* ===============================
-   OBSERVAR LOGIN (AUTH STATE)
+   OBSERVAR AUTH (SEM LOOP)
 ================================ */
 export function watchAuth(callback) {
-  onAuthStateChanged(auth, user => {
-    callback(user);
+  return onAuthStateChanged(auth, user => {
+    callback(user || null);
   });
 }
 
 /* ===============================
-   CRIAR OU BUSCAR USUÁRIO
+   CRIAR / BUSCAR USUÁRIO
 ================================ */
 export async function getOrCreateUser(user) {
+  if (!user) return null;
+
   const ref = doc(db, "users", user.uid);
   const snap = await getDoc(ref);
 
