@@ -1,7 +1,24 @@
 /* ===============================
    GERADOR DE SENSI IA
 ================================ */
-export function gerarSensiIA(modelo, specs, vip) {
+
+export function gerarSensiIA(input, specsAlt, vipAlt) {
+  let modelo, specs, vip;
+
+  if (typeof input === "object") {
+    modelo = input.modelo;
+    specs = {
+      hz: input.hz || 60,
+      chipset: input.chipset || "snapdragon",
+      ram: input.ram || 6
+    };
+    vip = input.vip;
+  } else {
+    modelo = input;
+    specs = specsAlt;
+    vip = vipAlt;
+  }
+
   const base = specs.hz === 120 ? 95 : 88;
   const ajusteChip = specs.chipset === "snapdragon" ? 4 : 2;
   const ajusteRam = specs.ram >= 8 ? 3 : 0;
@@ -13,52 +30,31 @@ export function gerarSensiIA(modelo, specs, vip) {
   const awm = geral - 35;
   const olhar = geral + 5;
 
-  /* ===============================
-     FREE
-  ================================ */
   if (!vip) {
     return `
       <div class="sensi-card free">
         <p>📱 <b>Modelo:</b> ${modelo}</p>
-        <p>🎮 <b>Sensibilidade Geral:</b> ${geral}</p>
+        <p>🎮 <b>Geral:</b> ${geral}</p>
         <p>🔴 <b>Red Dot:</b> ${redDot}</p>
         <p>🎯 <b>Mira 2x:</b> ${mira2x}</p>
-
-        <div class="vip-lock">
-          🔒 Conteúdo VIP bloqueado
-        </div>
-
-        <p class="cta">
-          🔥 Quer a sensi completa, calibrada pra HS?
-          <br>
-          <b>Vire VIP agora 🚀</b>
-        </p>
+        <div class="vip-lock">🔒 Conteúdo VIP bloqueado</div>
       </div>
     `;
   }
 
-  /* ===============================
-     VIP
-  ================================ */
   return `
     <div class="sensi-card vip">
-      <p>📱 <b>Modelo:</b> ${modelo}</p>
-      <p>⚡ <b>Hz:</b> ${specs.hz}Hz</p>
-      <p>🧠 <b>Chipset:</b> ${specs.chipset}</p>
-      <p>💾 <b>RAM:</b> ${specs.ram}GB</p>
-
+      <p>📱 <b>${modelo}</b></p>
+      <p>⚡ ${specs.hz}Hz</p>
+      <p>🧠 ${specs.chipset}</p>
+      <p>💾 ${specs.ram}GB RAM</p>
       <hr>
-
-      <p>🎮 <b>Geral:</b> ${geral}</p>
-      <p>🔴 <b>Red Dot:</b> ${redDot}</p>
-      <p>🎯 <b>Mira 2x:</b> ${mira2x}</p>
-      <p>🎯 <b>Mira 4x:</b> ${mira4x}</p>
-      <p>🔫 <b>AWM:</b> ${awm}</p>
-      <p>👁️ <b>Olhadinha:</b> ${olhar}</p>
-
-      <div class="vip-tip">
-        💡 Dica PRO: teste no modo treino e ajuste +2 se jogar 4 dedos.
-      </div>
+      <p>🎮 Geral: ${geral}</p>
+      <p>🔴 Red Dot: ${redDot}</p>
+      <p>🎯 Mira 2x: ${mira2x}</p>
+      <p>🎯 Mira 4x: ${mira4x}</p>
+      <p>🔫 AWM: ${awm}</p>
+      <p>👁️ Olhadinha: ${olhar}</p>
     </div>
   `;
 }
