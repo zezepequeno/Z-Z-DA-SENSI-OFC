@@ -1,4 +1,3 @@
-
 /* ===============================
    IMPORT
 ================================ */
@@ -36,12 +35,17 @@ function detectarSpecs(modelo) {
 function gerarSensibilidade(modelo, vip = false) {
   const specs = detectarSpecs(modelo);
 
-  return gerarSensiIA({
-    modelo,
-    hz: specs.hz,
-    chipset: specs.chipset,
-    vip
-  });
+  try {
+    return gerarSensiIA({
+      modelo,
+      hz: specs.hz,
+      chipset: specs.chipset,
+      vip
+    });
+  } catch (e) {
+    console.error("Erro ao gerar sensi:", e);
+    return `<p>⚠️ Erro ao gerar sensibilidade. Tente novamente.</p>`;
+  }
 }
 
 /* ===============================
