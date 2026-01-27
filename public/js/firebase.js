@@ -3,9 +3,6 @@
    Arquivo: js/firebase.js
 ================================ */
 
-/* ===============================
-   IMPORTS FIREBASE
-================================ */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 
 import {
@@ -13,6 +10,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithRedirect,
+  getRedirectResult,
   onAuthStateChanged,
   signOut
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -49,8 +47,6 @@ export const provider = new GoogleAuthProvider();
 
 /* ===============================
    LOGIN GOOGLE
-   - Mobile: Redirect
-   - Desktop: Popup
 ================================ */
 export async function loginGoogle() {
   try {
@@ -68,6 +64,13 @@ export async function loginGoogle() {
 }
 
 /* ===============================
+   TRATAR REDIRECT (MOBILE)
+================================ */
+getRedirectResult(auth).catch(err => {
+  console.error("Redirect error:", err);
+});
+
+/* ===============================
    LOGOUT
 ================================ */
 export async function logout() {
@@ -81,7 +84,7 @@ export async function logout() {
 }
 
 /* ===============================
-   OBSERVAR AUTH (SEM LOOP)
+   OBSERVAR AUTH
 ================================ */
 export function watchAuth(callback) {
   return onAuthStateChanged(auth, user => {
@@ -116,6 +119,7 @@ export async function getOrCreateUser(user) {
    ATUALIZAR VIP (ADMIN)
 ================================ */
 export async function setVip(uid, status) {
+  if (!uid) return;
   const ref = doc(db, "users", uid);
   await updateDoc(ref, { vip: status });
 }
