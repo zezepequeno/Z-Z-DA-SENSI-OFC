@@ -1,13 +1,4 @@
-/* ===============================
-   INDEX CONTROLLER
-   Arquivo: js/index.js
-================================ */
-
-/* ===============================
-   IMPORTS
-================================ */
 import {
-  auth,
   loginGoogle,
   logout,
   watchAuth,
@@ -17,22 +8,18 @@ import {
 import { GERAR_SENSI_IA } from "./sensi.js";
 
 /* ===============================
-   CONFIGURAÇÕES
+   CONFIG
 ================================ */
-const ADM_EMAILS = ["rafaellaranga80@gmail.com"];
+const ADM_EMAILS = ["rafaelaranja90@gmail.com"];
 const $ = id => document.getElementById(id);
 
-/* ===============================
-   BIND GLOBAL (HTML)
-================================ */
 window.loginGoogle = loginGoogle;
 window.logout = logout;
 
 /* ===============================
-   ESTADO DE AUTENTICAÇÃO
+   AUTH STATE
 ================================ */
 watchAuth(async user => {
-  // NÃO LOGADO
   if (!user) {
     $("loginBox").style.display = "block";
     $("painel").style.display = "none";
@@ -40,21 +27,14 @@ watchAuth(async user => {
     return;
   }
 
-  // LOGADO
   $("loginBox").style.display = "none";
   $("painel").style.display = "block";
   $("perfil").style.display = "flex";
 
   $("email").innerText = user.email;
 
-  /* ===============================
-     BUSCAR / CRIAR USUÁRIO
-  ================================ */
   const data = await getOrCreateUser(user);
 
-  /* ===============================
-     STATUS VIP
-  ================================ */
   if (data.vip) {
     $("vipStatus").innerText = "VIP ATIVO 🔥";
     $("vipStatus").className = "status vip";
@@ -65,37 +45,29 @@ watchAuth(async user => {
     $("vipCTA").style.display = "block";
   }
 
-  /* ===============================
-     BOTÃO ADMIN (SÓ ADM)
-  ================================ */
   if (ADM_EMAILS.includes(user.email)) {
     if (!$("adminBtn")) {
       const btn = document.createElement("button");
       btn.id = "adminBtn";
       btn.className = "admin-btn";
       btn.innerText = "⚙️ PAINEL ADMIN";
-      btn.onclick = () => {
-        location.href = "admin.html";
-      };
-
+      btn.onclick = () => location.href = "admin.html";
       $("painel").prepend(btn);
     }
   }
 });
 
 /* ===============================
-   GERAR SENSIBILIDADE
+   GERAR SENSI
 ================================ */
 window.gerarSensi = () => {
   const modelo = $("modelo").value.trim();
-
   if (!modelo) {
     alert("Digite o modelo do celular.");
     return;
   }
 
   const vipAtivo = $("vipStatus").innerText.includes("VIP");
-
   const resultadoHTML = GERAR_SENSI_IA(modelo, vipAtivo);
 
   $("resultado").innerHTML = `
