@@ -9,24 +9,22 @@
 </head>
 <body>
     <div class="bg-glow"></div>
-
     <div class="container">
         <header>
             <h1 class="logo">🔥 ZEZÉ DA SENSI 🔥</h1>
             <p class="tagline">O MELHOR GERADOR DE SENSIBILIDADE PRO</p>
         </header>
 
-        <div id="loginBox" class="card main-card">
+        <div id="loginBox" class="card">
             <h2>BEM-VINDO</h2>
-            <p>Faça login para acessar o painel e o gerador.</p>
+            <p style="margin-bottom: 20px;">Entre com o Google para liberar o gerador.</p>
             <button class="btn-google" onclick="window.loginGoogle()">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="G">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
                 ENTRAR COM GOOGLE
             </button>
         </div>
 
         <div id="app" style="display: none;">
-            
             <div class="profile-bar">
                 <div class="user-info">
                     <span id="userEmail">...</span>
@@ -35,23 +33,19 @@
                 <button class="btn-logout" onclick="window.logout()">SAIR</button>
             </div>
 
-            <div class="card generator-card">
-                <h3>🎯 GERADOR DE SENSIBILIDADE IA</h3>
-                <div class="input-group">
-                    <input type="text" id="modeloCelular" placeholder="Qual o modelo do seu celular?">
-                </div>
-                <button class="btn-gerar" onclick="window.gerarSensi()">⚡ GERAR SENSI AGORA</button>
-                
+            <div class="card">
+                <h3>🎯 GERADOR DE SENSI IA</h3>
+                <input type="text" id="modeloCelular" placeholder="Qual seu celular?">
+                <button class="btn-gerar" onclick="window.gerarSensi()">⚡ GERAR AGORA</button>
                 <div id="resultadoSensi"></div>
             </div>
 
             <div id="vipSection" class="card vip-card" style="display: none;">
-                <p>💎 VOCÊ É VIP! ACESSE O SUPORTE ABAIXO:</p>
-                <a href="https://wa.me/5511940332090" target="_blank" class="btn-whatsapp">CHAMAR NO WHATSAPP</a>
+                <p>💎 SUPORTE VIP LIBERADO:</p>
+                <a href="https://wa.me/5511940332090" target="_blank" class="btn-whatsapp">WHATSAPP VIP</a>
             </div>
         </div>
     </div>
-
     <script type="module" src="script.js"></script>
 </body>
 </html>
