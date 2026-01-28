@@ -1,42 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>🔥 ZEZÉ DA SENSI — OFC</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="public/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 ZEZÉ DA SENSI — OFC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
-  <div class="bg-effects"></div>
-  <div class="container">
-    <h1 class="logo">🔥 ZEZÉ DA SENSI 🔥</h1>
-    <p class="subtitle">🎮 Sensibilidade PRO • 💎 Estilo Free Fire</p>
+    <div class="bg-effects"></div>
 
-    <div id="loginBox" class="card">
-      <p>Acesse para liberar sua sensi</p>
-      <button class="btn-login" onclick="loginGoogle()">🚀 LOGIN COM GOOGLE</button>
+    <div class="container">
+        <header>
+            <h1 class="logo">🔥 ZEZÉ DA SENSI 🔥</h1>
+            <p class="subtitle">🎯 SENSIBILIDADE PRO • 💎 ESTILO FREE FIRE</p>
+        </header>
+
+        <div id="loginBox" class="card">
+            <p>Faça login para liberar seu gerador</p>
+            <button class="btn-login" onclick="window.loginGoogle()">🚀 ENTRAR COM GOOGLE</button>
+        </div>
+
+        <div id="perfil" class="card perfil" style="display:none;">
+            <div class="user-info">
+                <p>👤 <span id="email"></span></p>
+                <span id="vipStatus" class="status free">FREE</span>
+            </div>
+            <button class="btn-logout" onclick="window.logout()">Sair da Conta</button>
+        </div>
+
+        <div id="painel" class="card" style="display:none;">
+            <h2>🎯 GERADOR DE SENSI IA</h2>
+            <div class="input-group">
+                <input type="text" id="modelo" placeholder="Ex: iPhone 13, Galaxy A54...">
+            </div>
+            <button class="btn-gerar" onclick="window.gerarSensi()">⚡ GERAR SENSIBILIDADE</button>
+            
+            <div id="resultado"></div>
+
+            <div id="vipCTA" class="vip-cta" style="display:none;">
+                <p>💎 Quer a Sensi dos Pro Players?</p>
+                <a href="https://wa.me/5511940332090" target="_blank" class="btn-whatsapp">ADQUIRIR VIP NO WHATSAPP</a>
+            </div>
+        </div>
     </div>
 
-    <div id="perfil" class="perfil" style="display:none;">
-      <div class="user-info-bar">
-        <p>👤 <span id="email"></span></p>
-        <span id="vipStatus" class="status free">FREE</span>
-      </div>
-      <button class="btn-logout" onclick="logout()">Sair</button>
-    </div>
-
-    <div id="painel" class="card painel" style="display:none;">
-      <h2>🎯 GERADOR DE SENSIBILIDADE</h2>
-      <input type="text" id="modelo" placeholder="📱 Ex: Galaxy A54, iPhone 13..." />
-      <button class="btn-gerar" onclick="gerarSensi()">⚡ GERAR SENSI AGORA</button>
-      <div id="resultado"></div>
-      <div id="vipCTA" class="vip-cta" style="display:none;">
-        <p>💎 Sensi VIP dos Pro Players?</p>
-        <a href="https://wa.me/5511940332090" target="_blank" class="btn-whatsapp">CHAMAR NO WHATSAPP</a>
-      </div>
-    </div>
-  </div>
-  <script type="module" src="public/js/index.js"></script>
+    <script type="module" src="public/js/index.js"></script>
 </body>
 </html>
