@@ -26,6 +26,7 @@ export const auth = getAuth(app);
 export const db = getFirestore(app);
 
 const provider = new GoogleAuthProvider();
+provider.setCustomParameters({ prompt: "select_account" });
 
 export async function loginGoogle() {
     await signInWithRedirect(auth, provider);
@@ -47,14 +48,9 @@ export async function getOrCreateUser(user) {
     const snap = await getDoc(ref);
 
     if (!snap.exists()) {
-        const data = {
-            email: user.email,
-            vip: false,
-            createdAt: Date.now()
-        };
+        const data = { email: user.email, vip: false, createdAt: Date.now() };
         await setDoc(ref, data);
         return data;
     }
-
     return snap.data();
 }
