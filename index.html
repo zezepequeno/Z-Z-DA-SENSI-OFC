@@ -1,74 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZEZÉ DA SENSI OFC</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZEZÉ DA SENSI OFC</title>
 
-    <!-- Fonte Gamer -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <!-- Fonte Gamer -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
-    <!-- Estilo -->
-    <link rel="stylesheet" href="style.css">
+  <!-- Estilo -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="bg-glow"></div>
+  <div class="bg-glow"></div>
 
-    <main class="container">
+  <main class="container">
 
-        <header>
-            <h1 class="logo">🔥 ZEZÉ DA SENSI 🔥</h1>
-            <p class="tagline">O MELHOR GERADOR DE SENSIBILIDADE PRO</p>
-        </header>
+    <header>
+      <h1 class="logo">🔥 ZEZÉ DA SENSI 🔥</h1>
+      <p class="tagline">O MELHOR GERADOR DE SENSIBILIDADE PRO</p>
+    </header>
 
-        <!-- LOGIN -->
-        <section id="loginBox" class="card">
-            <h2>BEM-VINDO</h2>
-            <p class="subtext">Entre com o Google para liberar o gerador.</p>
+    <!-- LOGIN -->
+    <section id="loginBox" class="card">
+      <h2>BEM-VINDO</h2>
+      <p class="subtext">Entre com o Google para liberar o gerador.</p>
 
-            <button class="btn-google" id="googleLogin">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
-                ENTRAR COM GOOGLE
-            </button>
-        </section>
+      <button class="btn-google" id="googleLogin">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+        ENTRAR COM GOOGLE
+      </button>
+    </section>
 
-        <!-- APP -->
-        <section id="app" style="display:none;">
+    <!-- APP -->
+    <section id="app" style="display:none;">
 
-            <div class="profile-bar">
-                <div class="user-info">
-                    <span id="userEmail">...</span>
-                    <span id="vipStatus" class="badge">FREE</span>
-                </div>
+      <div class="profile-bar">
+        <div class="user-info">
+          <span id="userEmail"></span>
+          <span id="vipStatus" class="badge">FREE</span>
+        </div>
 
-                <button class="btn-logout" id="logoutBtn">SAIR</button>
-            </div>
+        <button class="btn-logout" id="logoutBtn">SAIR</button>
+      </div>
 
-            <div class="card">
-                <h3>🎯 GERADOR DE SENSI IA</h3>
+      <div class="card">
+        <h3>🎯 GERADOR DE SENSI IA</h3>
 
-                <input type="text" id="modeloCelular" placeholder="Qual seu celular?">
+        <input type="text" id="modeloCelular" placeholder="Qual seu celular?">
 
-                <button class="btn-gerar" id="gerarBtn">
-                    ⚡ GERAR AGORA
-                </button>
+        <button class="btn-gerar" id="gerarBtn">
+          ⚡ GERAR AGORA
+        </button>
 
-                <div id="resultadoSensi"></div>
-            </div>
+        <div id="resultadoSensi"></div>
+      </div>
 
-            <div id="vipSection" class="card vip-card" style="display:none;">
-                <p class="vip-title">💎 SUPORTE VIP LIBERADO</p>
+      <div id="vipSection" class="card vip-card" style="display:none;">
+        <p class="vip-title">💎 SUPORTE VIP LIBERADO</p>
 
-                <a href="https://wa.me/5511940332090" target="_blank" class="btn-whatsapp">
-                    WHATSAPP VIP
-                </a>
-            </div>
+        <a href="https://wa.me/5511940332090" target="_blank" class="btn-whatsapp">
+          WHATSAPP VIP
+        </a>
+      </div>
 
-        </section>
-    </main>
+    </section>
+  </main>
 
-    <!-- SCRIPT -->
-    <script type="module" src="script.js"></script>
+  <!-- SCRIPT -->
+  <script type="module" src="script.js"></script>
 </body>
 </html>
