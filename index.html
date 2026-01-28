@@ -1,54 +1,60 @@
-import { 
-    loginGoogle, 
-    logout, 
-    watchAuth, 
-    getOrCreateUser 
-} from "./firebase.js";
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 ZEZÉ DA SENSI — OFC</title>
 
-import { gerarSensi } from "./sensi.js";
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/style.css">
+</head>
+<body>
 
-/* ===============================
-   EXPOR FUNÇÕES GLOBALMENTE
-================================ */
-window.loginGoogle = loginGoogle;
-window.logout = logout;
-window.gerarSensi = gerarSensi;
+    <div class="bg-effects"></div>
 
-/* ===============================
-   ELEMENTOS
-================================ */
-const loginBox = document.getElementById("loginBox");
-const perfil = document.getElementById("perfil");
-const painel = document.getElementById("painel");
-const emailEl = document.getElementById("email");
-const vipStatus = document.getElementById("vipStatus");
-const vipCTA = document.getElementById("vipCTA");
+    <div class="container">
 
-/* ===============================
-   AUTH FLOW
-================================ */
-watchAuth(async (user) => {
-    if (user) {
-        loginBox.style.display = "none";
-        perfil.style.display = "block";
-        painel.style.display = "block";
+        <header>
+            <h1 class="logo">🔥 ZEZÉ DA SENSI 🔥</h1>
+            <p class="subtitle">🎯 SENSIBILIDADE PRO • 💎 ESTILO FREE FIRE</p>
+        </header>
 
-        emailEl.textContent = user.email;
+        <div id="loginBox" class="card">
+            <p>Faça login para liberar seu gerador</p>
+            <button class="btn-login" onclick="loginGoogle()">
+                🚀 ENTRAR COM GOOGLE
+            </button>
+        </div>
 
-        const data = await getOrCreateUser(user);
+        <div id="perfil" class="card perfil" style="display:none;">
+            <p>👤 <span id="email"></span></p>
+            <span id="vipStatus" class="status free">FREE</span>
+            <button class="btn-logout" onclick="logout()">Sair</button>
+        </div>
 
-        if (data && data.vip) {
-            vipStatus.textContent = "VIP";
-            vipStatus.classList.remove("free");
-            vipStatus.classList.add("vip");
-            vipCTA.style.display = "none";
-        } else {
-            vipStatus.textContent = "FREE";
-            vipCTA.style.display = "block";
-        }
-    } else {
-        loginBox.style.display = "block";
-        perfil.style.display = "none";
-        painel.style.display = "none";
-    }
-});
+        <div id="painel" class="card" style="display:none;">
+            <h2>🎯 GERADOR DE SENSI IA</h2>
+
+            <input id="modelo" type="text" placeholder="Ex: Galaxy A54">
+
+            <button class="btn-gerar" onclick="gerarSensi()">
+                ⚡ GERAR SENSIBILIDADE
+            </button>
+
+            <div id="resultado"></div>
+
+            <div id="vipCTA" style="display:none;">
+                <p>💎 Quer sensi PRO?</p>
+                <a href="https://wa.me/5511940332090" target="_blank">
+                    ADQUIRIR VIP
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS TEM QUE FICAR AQUI -->
+    <script type="module" src="public/js/index.js"></script>
+
+</body>
+</html>
