@@ -6,99 +6,106 @@
   font-family: 'Orbitron', sans-serif;
 }
 
-/* BODY */
+/* FUNDO GERAL */
 body {
   min-height: 100vh;
-  background: radial-gradient(circle at top, #111 0%, #000 70%);
+  background: radial-gradient(circle at top, #1a001f, #000);
   color: #fff;
   overflow-x: hidden;
 }
 
-/* FUNDO ANIMADO */
+/* EFEITOS DE FUNDO */
 .bg-effects {
   position: fixed;
   inset: 0;
   background:
-    linear-gradient(120deg, rgba(255,153,0,.08), transparent 60%),
-    linear-gradient(-120deg, rgba(0,255,255,.05), transparent 60%);
-  animation: bgMove 8s infinite alternate;
+    radial-gradient(circle at 20% 20%, rgba(255, 0, 100, 0.15), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(0, 255, 200, 0.12), transparent 45%);
+  animation: pulseBg 6s infinite alternate;
   z-index: -1;
 }
 
-@keyframes bgMove {
-  from { filter: hue-rotate(0deg); }
-  to { filter: hue-rotate(25deg); }
+@keyframes pulseBg {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.3); }
 }
 
 /* CONTAINER */
 .container {
   max-width: 420px;
-  margin: 0 auto;
-  padding: 25px 15px 40px;
+  margin: auto;
+  padding: 30px 16px 50px;
   text-align: center;
 }
 
 /* LOGO */
 .logo {
-  font-size: 2.2rem;
+  font-size: 28px;
   font-weight: 900;
-  color: #ff9c00;
-  text-shadow: 0 0 15px rgba(255,156,0,.6);
+  letter-spacing: 2px;
   margin-bottom: 10px;
-  animation: pulse 2s infinite;
+  text-shadow:
+    0 0 10px #ff0077,
+    0 0 20px #ff0077;
+  animation: glowLogo 2s infinite alternate;
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.04); }
-  100% { transform: scale(1); }
+@keyframes glowLogo {
+  from { text-shadow: 0 0 8px #ff0077; }
+  to { text-shadow: 0 0 18px #ff44aa; }
 }
 
-/* SUBTITLE */
+/* SUBTÍTULO */
 .subtitle {
-  font-size: .9rem;
-  color: #ccc;
-  margin-bottom: 25px;
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 22px;
 }
 
 .subtitle span {
-  color: #00ffe1;
-  font-size: .8rem;
+  color: #00ffd5;
+  font-size: 13px;
 }
 
 /* CARDS */
 .card {
-  background: linear-gradient(180deg, #111, #0a0a0a);
+  background: linear-gradient(145deg, #120015, #1f0026);
   border-radius: 18px;
   padding: 22px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 25px rgba(0,0,0,.7);
-  border: 1px solid rgba(255,255,255,.05);
-  animation: slideUp .6s ease;
+  margin-top: 18px;
+  box-shadow:
+    0 0 20px rgba(255, 0, 120, 0.25),
+    inset 0 0 20px rgba(255, 255, 255, 0.03);
+  animation: cardIn 0.6s ease;
 }
 
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(40px); }
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* BOTÃO LOGIN */
-.btn-login {
+/* BOTÕES */
+button {
   width: 100%;
-  padding: 14px;
-  border-radius: 30px;
   border: none;
-  background: linear-gradient(135deg, #ff9c00, #ff5e00);
-  color: #000;
-  font-weight: 800;
-  font-size: 1rem;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
-  transition: .3s;
+  transition: all 0.3s ease;
+}
+
+/* LOGIN GOOGLE */
+.btn-login {
+  background: linear-gradient(135deg, #ff005d, #ff7a00);
+  color: #fff;
+  box-shadow: 0 0 15px #ff005d;
 }
 
 .btn-login:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255,156,0,.7);
+  box-shadow: 0 0 25px #ff005d;
 }
 
 /* PERFIL */
@@ -106,101 +113,107 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 15px;
+  margin-top: 14px;
+  align-items: center;
 }
 
 .perfil p {
-  font-size: .8rem;
-  color: #ccc;
+  font-size: 13px;
+  opacity: 0.9;
 }
 
-/* STATUS VIP */
+/* STATUS */
 .status {
-  display: inline-block;
-  padding: 5px 14px;
+  padding: 4px 14px;
   border-radius: 20px;
-  font-size: .75rem;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 .status.free {
   background: #333;
-  color: #aaa;
+  color: #fff;
 }
 
-/* BOTÃO SAIR */
+.status.vip {
+  background: linear-gradient(135deg, gold, orange);
+  color: #000;
+  box-shadow: 0 0 10px gold;
+}
+
+/* LOGOUT */
 .btn-logout {
-  background: transparent;
-  border: 1px solid #444;
-  color: #ccc;
-  border-radius: 20px;
-  padding: 7px;
-  cursor: pointer;
+  background: #222;
+  color: #fff;
+  margin-top: 6px;
+}
+
+.btn-logout:hover {
+  background: #ff0044;
 }
 
 /* PAINEL */
 .painel h2 {
-  font-size: 1.2rem;
-  color: #ff9c00;
-  margin-bottom: 15px;
+  font-size: 17px;
+  margin-bottom: 14px;
+  color: #00ffd5;
 }
 
 /* INPUT */
 input {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 25px;
+  padding: 12px;
+  border-radius: 12px;
   border: none;
   outline: none;
-  background: #000;
-  color: #fff;
-  box-shadow: inset 0 0 10px rgba(0,0,0,.8);
-  margin-bottom: 15px;
+  margin-bottom: 14px;
+  font-size: 14px;
 }
 
-/* BOTÃO GERAR */
+/* GERAR */
 .btn-gerar {
-  width: 100%;
-  padding: 13px;
-  border-radius: 30px;
-  border: none;
-  background: linear-gradient(135deg, #00ffe1, #00aaff);
+  background: linear-gradient(135deg, #00ffd5, #00aaff);
   color: #000;
-  font-weight: 800;
-  cursor: pointer;
-  transition: .3s;
+  box-shadow: 0 0 15px #00ffd5;
 }
 
 .btn-gerar:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(0,255,225,.6);
 }
 
 /* RESULTADO */
 .resultado {
-  margin-top: 18px;
-  padding: 15px;
-  border-radius: 15px;
-  background: rgba(0,0,0,.6);
-  font-size: .85rem;
-  animation: slideUp .5s ease;
+  margin-top: 16px;
+  font-size: 14px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* VIP CTA */
 .vip-cta {
-  margin-top: 15px;
+  margin-top: 18px;
   padding: 14px;
-  background: linear-gradient(135deg, #ffd700, #ff9c00);
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ffcc00, #ff8800);
   color: #000;
-  border-radius: 18px;
   font-weight: 800;
-  animation: pulse 2s infinite;
+  animation: shakeVip 1.2s infinite;
 }
 
 .vip-cta a {
-  display: block;
+  display: inline-block;
   margin-top: 6px;
   color: #000;
   text-decoration: none;
-  font-size: .9rem;
+  font-weight: 900;
+}
+
+@keyframes shakeVip {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
