@@ -1,22 +1,10 @@
-import { 
-    loginGoogle, 
-    logout, 
-    watchAuth, 
-    getOrCreateUser 
-} from "./firebase.js";
-
+import { loginGoogle, logout, watchAuth, getOrCreateUser } from "./firebase.js";
 import { gerarSensi } from "./sensi.js";
 
-/* ===============================
-   EXPOR FUNÇÕES (OBRIGATÓRIO)
-================================ */
 window.loginGoogle = loginGoogle;
 window.logout = logout;
 window.gerarSensi = gerarSensi;
 
-/* ===============================
-   ELEMENTOS
-================================ */
 const loginBox = document.getElementById("loginBox");
 const perfil = document.getElementById("perfil");
 const painel = document.getElementById("painel");
@@ -24,9 +12,6 @@ const emailEl = document.getElementById("email");
 const vipStatus = document.getElementById("vipStatus");
 const vipCTA = document.getElementById("vipCTA");
 
-/* ===============================
-   AUTH FLOW
-================================ */
 watchAuth(async (user) => {
     if (user) {
         loginBox.style.display = "none";
@@ -36,12 +21,14 @@ watchAuth(async (user) => {
         emailEl.textContent = user.email;
 
         const data = await getOrCreateUser(user);
+
         if (data?.vip) {
             vipStatus.textContent = "VIP";
-            vipStatus.classList.remove("free");
-            vipStatus.classList.add("vip");
+            vipStatus.className = "status vip";
             vipCTA.style.display = "none";
         } else {
+            vipStatus.textContent = "FREE";
+            vipStatus.className = "status free";
             vipCTA.style.display = "block";
         }
     } else {
