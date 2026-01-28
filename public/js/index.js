@@ -1,51 +1,52 @@
-import { loginGoogle, logout, watchAuth, getOrCreateUser } from "./firebase.js";
-import { GERAR_SENSI_IA } from "./sensi.js";
+import { 
+    loginGoogle, 
+    logout, 
+    watchAuth, 
+    getOrCreateUser 
+} from "./firebase.js";
 
-const ADM_EMAILS = ["rafaelaranja90@gmail.com"];
-const $ = id => document.getElementById(id);
+import { gerarSensi } from "./sensi.js";
 
-// Funções Globais para o HTML
+/* ===============================
+   EXPOR FUNÇÕES (OBRIGATÓRIO)
+================================ */
 window.loginGoogle = loginGoogle;
 window.logout = logout;
+window.gerarSensi = gerarSensi;
 
+/* ===============================
+   ELEMENTOS
+================================ */
+const loginBox = document.getElementById("loginBox");
+const perfil = document.getElementById("perfil");
+const painel = document.getElementById("painel");
+const emailEl = document.getElementById("email");
+const vipStatus = document.getElementById("vipStatus");
+const vipCTA = document.getElementById("vipCTA");
+
+/* ===============================
+   AUTH FLOW
+================================ */
 watchAuth(async (user) => {
-    if (!user) {
-        $("loginBox").style.display = "block";
-        $("perfil").style.display = "none";
-        $("painel").style.display = "none";
-        return;
-    }
+    if (user) {
+        loginBox.style.display = "none";
+        perfil.style.display = "block";
+        painel.style.display = "block";
 
-    // Usuário Logado
-    $("loginBox").style.display = "none";
-    $("perfil").style.display = "block";
-    $("painel").style.display = "block";
-    $("email").innerText = user.email;
+        emailEl.textContent = user.email;
 
-    // Buscar Dados VIP
-    const userData = await getOrCreateUser(user);
-    const isVip = userData && userData.vip === true;
-
-    $("vipStatus").innerText = isVip ? "VIP ATIVO 🔥" : "FREE";
-    $("vipStatus").className = `status ${isVip ? 'vip' : 'free'}`;
-    $("vipCTA").style.display = isVip ? "none" : "block";
-
-    // Botão de Admin
-    if (ADM_EMAILS.includes(user.email) && !$("adminBtn")) {
-        const adminBtn = document.createElement("button");
-        adminBtn.id = "adminBtn";
-        adminBtn.innerText = "⚙️ PAINEL ADMIN";
-        adminBtn.style.cssText = "background:#222; color:#fff; border:1px solid #555; padding:5px 10px; border-radius:8px; cursor:pointer; margin-top:10px;";
-        adminBtn.onclick = () => location.href = "admin.html";
-        $("perfil").appendChild(adminBtn);
+        const data = await getOrCreateUser(user);
+        if (data?.vip) {
+            vipStatus.textContent = "VIP";
+            vipStatus.classList.remove("free");
+            vipStatus.classList.add("vip");
+            vipCTA.style.display = "none";
+        } else {
+            vipCTA.style.display = "block";
+        }
+    } else {
+        loginBox.style.display = "block";
+        perfil.style.display = "none";
+        painel.style.display = "none";
     }
 });
-
-window.gerarSensi = () => {
-    const modelo = $("modelo").value.trim();
-    if (!modelo) return alert("Por favor, digite o modelo do celular!");
-
-    const isVip = $("vipStatus").innerText.includes("VIP");
-    const resultadoHTML = GERAR_SENSI_IA(modelo, isVip);
-    $("resultado").innerHTML = resultadoHTML;
-};
