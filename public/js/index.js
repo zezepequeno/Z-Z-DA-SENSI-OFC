@@ -4,42 +4,48 @@ import { GERAR_SENSI_IA } from "./sensi.js";
 const ADM_EMAILS = ["rafaelaranja90@gmail.com"];
 const $ = id => document.getElementById(id);
 
+// Funções Globais para o HTML
 window.loginGoogle = loginGoogle;
 window.logout = logout;
 
-watchAuth(async user => {
-  if (!user) {
-    $("loginBox").style.display = "block";
-    $("painel").style.display = "none";
-    $("perfil").style.display = "none";
-    return;
-  }
+watchAuth(async (user) => {
+    if (!user) {
+        $("loginBox").style.display = "block";
+        $("perfil").style.display = "none";
+        $("painel").style.display = "none";
+        return;
+    }
 
-  $("loginBox").style.display = "none";
-  $("painel").style.display = "block";
-  $("perfil").style.display = "block";
-  $("email").innerText = user.email;
+    // Usuário Logado
+    $("loginBox").style.display = "none";
+    $("perfil").style.display = "block";
+    $("painel").style.display = "block";
+    $("email").innerText = user.email;
 
-  const data = await getOrCreateUser(user);
-  const isVip = data && data.vip === true;
+    // Buscar Dados VIP
+    const userData = await getOrCreateUser(user);
+    const isVip = userData && userData.vip === true;
 
-  $("vipStatus").innerText = isVip ? "VIP ATIVO 🔥" : "FREE";
-  $("vipStatus").className = `status ${isVip ? 'vip' : 'free'}`;
-  $("vipCTA").style.display = isVip ? "none" : "block";
+    $("vipStatus").innerText = isVip ? "VIP ATIVO 🔥" : "FREE";
+    $("vipStatus").className = `status ${isVip ? 'vip' : 'free'}`;
+    $("vipCTA").style.display = isVip ? "none" : "block";
 
-  if (ADM_EMAILS.includes(user.email) && !$("adminBtn")) {
-    const btn = document.createElement("button");
-    btn.id = "adminBtn";
-    btn.innerText = "⚙️ ADMIN";
-    btn.style.cssText = "background:#333; color:white; border:none; padding:5px; margin-top:10px; border-radius:5px;";
-    btn.onclick = () => location.href = "admin.html";
-    $("perfil").appendChild(btn);
-  }
+    // Botão de Admin
+    if (ADM_EMAILS.includes(user.email) && !$("adminBtn")) {
+        const adminBtn = document.createElement("button");
+        adminBtn.id = "adminBtn";
+        adminBtn.innerText = "⚙️ PAINEL ADMIN";
+        adminBtn.style.cssText = "background:#222; color:#fff; border:1px solid #555; padding:5px 10px; border-radius:8px; cursor:pointer; margin-top:10px;";
+        adminBtn.onclick = () => location.href = "admin.html";
+        $("perfil").appendChild(adminBtn);
+    }
 });
 
 window.gerarSensi = () => {
-  const modelo = $("modelo").value.trim();
-  if (!modelo) return alert("Digite o modelo!");
-  const isVip = $("vipStatus").innerText.includes("VIP");
-  $("resultado").innerHTML = GERAR_SENSI_IA(modelo, isVip);
+    const modelo = $("modelo").value.trim();
+    if (!modelo) return alert("Por favor, digite o modelo do celular!");
+
+    const isVip = $("vipStatus").innerText.includes("VIP");
+    const resultadoHTML = GERAR_SENSI_IA(modelo, isVip);
+    $("resultado").innerHTML = resultadoHTML;
 };
