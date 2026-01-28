@@ -14,7 +14,7 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-// LOGIN INTELIGENTE (Popup para PC, Redirect para Celular)
+// LOGIN GOOGLE
 window.loginGoogle = async () => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) { await signInWithRedirect(auth, provider); } 
@@ -25,12 +25,14 @@ window.logout = () => signOut(auth).then(() => location.reload());
 
 // MONITOR DE LOGIN
 onAuthStateChanged(auth, async (user) => {
+    const loginBox = document.getElementById("loginBox");
+    const appUI = document.getElementById("app");
+    
     if (user) {
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("app").style.display = "block";
+        loginBox.style.display = "none";
+        appUI.style.display = "block";
         document.getElementById("userEmail").innerText = user.email;
 
-        // Verificar VIP no Banco de Dados
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
         
@@ -39,36 +41,27 @@ onAuthStateChanged(auth, async (user) => {
             document.getElementById("vipStatus").classList.add("active-vip");
             document.getElementById("vipSection").style.display = "block";
         } else {
-            // Se não existe, cria o usuário como FREE
             await setDoc(docRef, { email: user.email, vip: false }, { merge: true });
         }
     } else {
-        document.getElementById("loginBox").style.display = "block";
-        document.getElementById("app").style.display = "none";
+        loginBox.style.display = "block";
+        appUI.style.display = "none";
     }
 });
 
-// GERADOR DE SENSI
+// GERADOR
 window.gerarSensi = () => {
     const modelo = document.getElementById("modeloCelular").value;
-    if (!modelo) return alert("Por favor, digite o modelo do seu celular!");
-
-    const n1 = Math.floor(Math.random() * 10) + 90; // Sensi alta 90-100
-    const res = document.getElementById("resultadoSensi");
+    if (!modelo) return alert("Digite o modelo do celular!");
     
-    res.innerHTML = `
+    const n = Math.floor(Math.random() * 10) + 90;
+    document.getElementById("resultadoSensi").innerHTML = `
         <div class="res-box">
-            <p style="color:#888; font-size:0.7rem; margin-bottom:10px;">CONFIGURAÇÃO PARA: ${modelo.toUpperCase()}</p>
-            <p>🔴 Geral: <b>${n1}</b></p>
-            <p>🔴 Ponto Vermelho: <b>${n1 - 2}</b></p>
-            <p>🎯 Mira 2x: <b>${n1 - 5}</b></p>
-            <p>🎯 Mira 4x: <b>${n1 - 8}</b></p>
-            <p>🖱️ DPI Sugerida: <b>${n1 > 95 ? '720' : '580'}</b></p>
-            <p style="margin-top:10px; font-size:0.7rem; color:#ffd700;">✨ Sensi calibrada por IA!</p>
+            <p style="color:#888; font-size:0.7rem;">Sensi para ${modelo.toUpperCase()}</p>
+            <p>🔴 Geral: <b>${n}</b></p>
+            <p>🎯 Mira 2x: <b>${n-5}</b></p>
+            <p>🖱️ DPI: <b>600</b></p>
         </div>
     `;
 };
-
-// Captura resultado de redirect mobile
 getRedirectResult(auth).catch(() => {});
-
