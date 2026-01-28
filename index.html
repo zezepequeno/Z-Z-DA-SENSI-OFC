@@ -2,59 +2,28 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <title>🔥 ZEZÉ DA SENSI — OFC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 ZEZÉ DA SENSI — OFC</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="public/css/style.css">
 </head>
 <body>
 
-    <div class="bg-effects"></div>
+<div id="loginBox">
+    <button onclick="loginGoogle()">ENTRAR COM GOOGLE</button>
+</div>
 
-    <div class="container">
+<div id="perfil" style="display:none;">
+    <p>Email: <span id="email"></span></p>
+    <span id="vipStatus" class="free">FREE</span>
+    <button onclick="logout()">Sair</button>
+</div>
 
-        <header>
-            <h1 class="logo">🔥 ZEZÉ DA SENSI 🔥</h1>
-            <p class="subtitle">🎯 SENSIBILIDADE PRO • 💎 ESTILO FREE FIRE</p>
-        </header>
+<div id="painel" style="display:none;">
+    <input id="modelo" placeholder="Modelo do celular">
+    <button onclick="gerarSensi()">Gerar Sensi</button>
+    <div id="resultado"></div>
+    <div id="vipCTA">COMPRE VIP</div>
+</div>
 
-        <div id="loginBox" class="card">
-            <p>Faça login para liberar seu gerador</p>
-            <button class="btn-login" onclick="loginGoogle()">
-                🚀 ENTRAR COM GOOGLE
-            </button>
-        </div>
-
-        <div id="perfil" class="card perfil" style="display:none;">
-            <p>👤 <span id="email"></span></p>
-            <span id="vipStatus" class="status free">FREE</span>
-            <button class="btn-logout" onclick="logout()">Sair</button>
-        </div>
-
-        <div id="painel" class="card" style="display:none;">
-            <h2>🎯 GERADOR DE SENSI IA</h2>
-
-            <input id="modelo" type="text" placeholder="Ex: Galaxy A54">
-
-            <button class="btn-gerar" onclick="gerarSensi()">
-                ⚡ GERAR SENSIBILIDADE
-            </button>
-
-            <div id="resultado"></div>
-
-            <div id="vipCTA" style="display:none;">
-                <p>💎 Quer sensi PRO?</p>
-                <a href="https://wa.me/5511940332090" target="_blank">
-                    ADQUIRIR VIP
-                </a>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- JS TEM QUE FICAR AQUI -->
-    <script type="module" src="public/js/index.js"></script>
-
+<script type="module" src="./public/js/index.js"></script>
 </body>
 </html>
