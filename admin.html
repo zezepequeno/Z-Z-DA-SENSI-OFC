@@ -1,40 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>⚙️ ADMIN — ZEZÉ DA SENSI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="public/css/style.css">
-  <style>
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 0.8rem; }
-    th, td { border: 1px solid #333; padding: 10px; text-align: left; }
-    th { background: #111; color: #ff6a00; }
-    .btn-remover { background: #ff4444; color: white; border: none; padding: 5px; border-radius: 5px; }
-    .btn-ativar { background: #25d366; color: white; border: none; padding: 5px; border-radius: 5px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>⚙️ ADMIN — ZEZÉ</title>
+    <link rel="stylesheet" href="public/css/style.css">
+    <style>
+        table { width: 100%; color: white; margin-top: 20px; font-size: 0.7rem; }
+        th { color: #ff6a00; }
+        td { padding: 10px; border-bottom: 1px solid #333; }
+        .btn-v { background: #25d366; border: none; padding: 5px; border-radius: 5px; }
+    </style>
 </head>
 <body>
-  <div class="bg-effects"></div>
-  <div class="container" style="max-width: 600px;">
-    <h1 class="logo">PAINEL ADMIN</h1>
-    
-    <div id="painel" class="card">
-      <p>Total Usuários: <span id="totalUsers">0</span></p>
-      <table>
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        <tbody id="lista"></tbody>
-      </table>
-      <button class="btn-logout" onclick="location.href='index.html'" style="margin-top:20px;">⬅️ VOLTAR</button>
+    <div class="container">
+        <h1 class="logo">ADMIN</h1>
+        <div class="card">
+            <div id="lista">Carregando usuários...</div>
+            <button class="btn-login" onclick="location.href='index.html'" style="margin-top:20px;">VOLTAR</button>
+        </div>
     </div>
-  </div>
-
-  <script type="module" src="public/js/admin.js"></script>
+    <script type="module" src="public/js/admin.js"></script>
 </body>
 </html>
