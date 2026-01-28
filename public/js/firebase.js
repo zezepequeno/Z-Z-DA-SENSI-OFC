@@ -15,9 +15,6 @@ import {
     setDoc 
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-/* ===============================
-   CONFIG FIREBASE
-================================ */
 const firebaseConfig = {
     apiKey: "AIzaSyBXrz_LFG44evIKLVBjYk4dYhaO9T2-FE0",
     authDomain: "zeze-da-sensi-ofc.firebaseapp.com",
@@ -30,64 +27,29 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-/* ===============================
-   PROVIDER GOOGLE
-================================ */
 const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
-    prompt: "select_account"
-});
+provider.setCustomParameters({ prompt: "select_account" });
 
-/* ===============================
-   LOGIN
-================================ */
 export async function loginGoogle() {
-    try {
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-        if (isMobile) {
-            await signInWithRedirect(auth, provider);
-        } else {
-            await signInWithPopup(auth, provider);
-        }
-    } catch (err) {
-        console.error("Erro no login Google:", err);
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+        await signInWithRedirect(auth, provider);
+    } else {
+        await signInWithPopup(auth, provider);
     }
 }
 
-/* ===============================
-   REDIRECT RESULT (MOBILE)
-================================ */
-getRedirectResult(auth)
-    .then((result) => {
-        if (result && result.user) {
-            console.log("Login redirect OK:", result.user.email);
-        }
-    })
-    .catch((error) => {
-        console.error("Erro redirect:", error);
-    });
+getRedirectResult(auth).catch(() => {});
 
-/* ===============================
-   LOGOUT
-================================ */
 export async function logout() {
     await signOut(auth);
     location.reload();
 }
 
-/* ===============================
-   AUTH OBSERVER
-================================ */
 export function watchAuth(callback) {
-    onAuthStateChanged(auth, async (user) => {
-        callback(user);
-    });
+    onAuthStateChanged(auth, callback);
 }
 
-/* ===============================
-   USER FIRESTORE
-================================ */
 export async function getOrCreateUser(user) {
     if (!user) return null;
 
@@ -95,14 +57,13 @@ export async function getOrCreateUser(user) {
     const userSnap = await getDoc(userRef);
 
     if (!userSnap.exists()) {
-        const newData = {
+        const data = {
             email: user.email,
             vip: false,
             createdAt: Date.now()
         };
-        await setDoc(userRef, newData);
-        return newData;
+        await setDoc(userRef, data);
+        return data;
     }
-
     return userSnap.data();
 }
